@@ -32,7 +32,7 @@ app.use("/api/v1/users", userRoutes);
 const start = async () => {
   try {
     await mongoose.connect(
-      "mongodb+srv://mongodb444:mongo444db@cluster0.kihcl1f.mongodb.net/",
+      "YOUR_DB_CONN",
     );
     console.log("Connected to MongoDB");
     server.listen(app.get("port"), () => {
