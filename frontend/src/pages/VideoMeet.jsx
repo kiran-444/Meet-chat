@@ -341,6 +341,13 @@ export default function VideoMeet() {
                 variant="outlined"
                 fullWidth
                 onKeyDown={(e) => e.key === "Enter" && connect()}
+                sx={{
+                      "& .MuiInputLabel-root": { color: "white" },
+                      "& .MuiInputLabel-root.Mui-focused": { color: "white" },
+                      "& .MuiInputBase-input": {
+                        color: "white",
+                      },
+                    }}
               />
               <Button
                 variant="contained"
@@ -376,12 +383,17 @@ export default function VideoMeet() {
 
                 <div className={styles.chatingDisplay}>
                   {messages.length > 0 ? (
-                    messages.map((item, index) => (
-                      <div style={{ marginBottom: "20px" }} key={index}>
-                        <p style={{ fontWeight: "bold" }}>{item.sender}</p>
-                        <p>{item.data}</p>
-                      </div>
-                    ))
+                    messages.map((item, index) => {
+                      const isMe = item.sender === username;
+                      return (
+                        <div key={index} className={isMe ? styles.msgRowMe : styles.msgRowOther}>
+                          {!isMe && <p className={styles.msgSender}>{item.sender}</p>}
+                          <div className={isMe ? styles.bubbleMe : styles.bubbleOther}>
+                            <p className={styles.msgText}>{item.data}</p>
+                          </div>
+                        </div>
+                      );
+                    })
                   ) : (
                     <p>No Messages Yet</p>
                   )}
